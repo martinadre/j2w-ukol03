@@ -6,30 +6,43 @@
     <title>Vizitkovník</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/png" href="/images/favicon.png">
 </head>
 <body>
 <div class="detail">
     <div class="vizitka">
-        <div class="jmeno">Dita (Přikrylová) Formánková</div>
-        <div class="firma">Czechitas z. s.</div>
-        <div class="udaje">
-            <div class="adresa">
-                <div>Václavské náměstí 837/11</div>
-                <div><span>11000</span> Praha 1</div>
+            [#if vizitka.jmeno?exists || vizitka.prijmeni?exists]
+                <div class="jmeno">${vizitka.jmeno} ${vizitka.prijmeni}</div>
+            [/#if]
+            [#if vizitka.firma?exists]
+                <div class="firma">${vizitka.firma}</div>
+            [/#if]
+            <div class="udaje">
+                <div class="adresa">
+                    [#if vizitka.celaAdresa?exists]
+                        <div>${vizitka.celaAdresa}</div>
+                    [/#if]
+                </div>
+                <div class="kontakty">
+                    [#if vizitka.email?exists]
+                        <div><i class="las la-at"></i> <span>${vizitka.email}</span></div>
+                    [/#if]
+                    [#if vizitka.telefon?exists]
+                        <div><i class="las la-phone-alt"></i> <span>${vizitka.telefon}</span></div>
+                    [/#if]
+                    [#if vizitka.web?exists]
+                        <div><i class="las la-globe"></i> <span>${vizitka.web}</span></div>
+                    [/#if]
+                </div>
             </div>
-            <div class="kontakty">
-                <div><i class="las la-at"></i> <span>dita@czechitas.cs</span></div>
-                <div><i class="las la-phone-alt"></i> <span>+420 800123456</span></div>
-                <div><i class="las la-globe"></i> <span>www.czechitas.cz</span></div>
-            </div>
-        </div>
     </div>
 
     <div class="mapa">
-        <iframe style="border:none" src="https://frame.mapy.cz/?q=${"Václavské náměstí 837/11, Praha"?url}" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe style="border:none" src="https://frame.mapy.cz/?q=${vizitka.celaAdresa?url}" width="100%"
+                height="100%" frameborder="0"></iframe>
     </div>
 
 </div>
